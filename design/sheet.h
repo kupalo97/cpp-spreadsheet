@@ -21,14 +21,14 @@ public:
     void PrintValues(std::ostream& output) const override;
     void PrintTexts(std::ostream& output) const override;
 
-    const Cell* GetConcreteCell(Position pos) const;
-    Cell* GetConcreteCell(Position pos);
+	// Можете дополнить ваш класс нужными полями и методами
+
 
 private:
-    void MaybeIncreaseSizeToIncludePosition(Position pos);
-    void PrintCells(std::ostream& output,
-                    const std::function<void(const CellInterface&)>& printCell) const;
-    Size GetActualSize() const;
-
+	// Можете дополнить ваш класс нужными полями и методами
     std::vector<std::vector<std::unique_ptr<Cell>>> cells_;
+    CellInterface* GetCellCommon(Position pos) const;
+    void PrintContent(std::ostream& output, std::string mode) const;
+    bool CircularDependencyControl(const CellInterface* cell, const Position& pos) const;
+
 };
