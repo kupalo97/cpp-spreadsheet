@@ -370,4 +370,6 @@ int main() {
     RUN_TEST(tr, TestCellReferences);
     RUN_TEST(tr, TestFormulaIncorrect);
     RUN_TEST(tr, TestCellCircularReferences);
+   // std::cout << "ok";
+    return 0;
 }

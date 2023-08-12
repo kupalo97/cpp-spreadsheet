@@ -6,6 +6,7 @@
 #include <forward_list>
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 namespace ASTImpl {
 class Expr;
@@ -15,6 +16,8 @@ class ParsingError : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
 
+
+
 class FormulaAST {
 public:
     explicit FormulaAST(std::unique_ptr<ASTImpl::Expr> root_expr,
@@ -23,7 +26,7 @@ public:
     FormulaAST& operator=(FormulaAST&&) = default;
     ~FormulaAST();
 
-    double Execute(/*добавьте нужные аргументы*/ args) const;
+    double Execute(const std::function<double(Position)>& args) const;
     void PrintCells(std::ostream& out) const;
     void Print(std::ostream& out) const;
     void PrintFormula(std::ostream& out) const;
@@ -31,7 +34,6 @@ public:
     std::forward_list<Position>& GetCells() {
         return cells_;
     }
-
     const std::forward_list<Position>& GetCells() const {
         return cells_;
     }
@@ -39,9 +41,6 @@ public:
 private:
     std::unique_ptr<ASTImpl::Expr> root_expr_;
 
-    // physically stores cells so that they can be
-    // efficiently traversed without going through
-    // the whole AST
     std::forward_list<Position> cells_;
 };
 
